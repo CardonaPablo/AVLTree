@@ -24,10 +24,12 @@ class Tree {
 				root = new Node(value);
 			} else {
 				root->push(value);
+				std::cout << "Checking balance factor of root";
+				root = root->checkBalanceFactor();
 			}
 		}
 
-		void balance() {
+		Node<T>* balance() {
 			// Follow the path with max height 3 levels to find rotation
 			char route[2] = { 'N' , 'N' }; 
 			std::cout << "Checking balance for " << std::endl;
@@ -47,11 +49,11 @@ class Tree {
 				if(selected->left == nullptr || rHeight  > lHeight) {
 					route[i] = 'R';
 					selected = root->right;
-				}
-				if(selected->right == nullptr || lHeight  > rHeight) {
+				} else if(selected->right == nullptr || lHeight  > rHeight) {
 					route[i] = 'L';
 					selected = root->left;
-				}
+				} else
+					break;
 			}
 
 			std::cout << "Detected " << route << " imbalance" << std::endl;
@@ -59,7 +61,11 @@ class Tree {
 				rotationLL();
 			else if(strcmp(route, "RR") == 0)
 				rotationRR();
-
+			else if(strcmp(route, "LR") == 0)
+				rotationLR();
+			
+			drawTree();
+			return root;
 		}
 
 		void drawTree() {
@@ -113,7 +119,6 @@ class Tree {
 			root = root->left;
 			// Reemplazar raíz→R→L con el valor guardado en (1)
 			root->right->left = buffer;
-			drawTree();
 		}
 
 		void rotationRR() {
@@ -126,9 +131,24 @@ class Tree {
 			root = root->right;
 			// Reemplazar raíz→R→L con el valor guardado en (1)
 			root->left->right = buffer;
-			drawTree();
 		}
 
+		void rotationLR() {
+			std::cout << "Performing LR rotation" << std::endl;
+			// 1. Raíz→L→R debe ser raíz→L
+			Node<T>* buffer = root->left;
+			Node<T>* buffer2 = root->left->right->left;
+			root->left = root->left->right;
+
+			// 2. Raíz →L debe ser raíz→L→L
+			buffer->right = buffer2;
+			root->left->left = buffer;
+			// 3. Se convierte en una rotación LL
+			drawTree();
+			std::cout << "Below 20" << std::endl;
+			buffer->printNode();
+			rotationLL();
+		}
 };
 
 #endif

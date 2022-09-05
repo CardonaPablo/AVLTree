@@ -4,7 +4,7 @@
 
 int main() {
 	Node<int> root;
-	Tree<int> t(&root);
+	Tree<int> tree;
 	//* Normal Tree
 	// root.setData(60);
 	// root.push(20);
@@ -15,20 +15,22 @@ int main() {
 	// root.push(50);
 
 	//* LL Rotation
-	// root.setData(30);
-	// root.push(20);
-	// root.push(10);
+	// tree.push(30);
+	// tree.push(20);
+	// tree.push(10);
 
 	//* RR Rotation
-	root.setData(30);
+	// tree.push(20);
+	// tree.push(30);
+	// tree.push(40);
 
-	root.push(20);
-	root.push(40);
-	root.push(35);
-	root.push(50);
+	//* LR Rotation
+	tree.push(30);
+	tree.push(20);
+	tree.push(25);
 
 	std::cout << "FINAL FORM" << std::endl;
-	t.drawTree();
+	tree.drawTree();
 	
 	//* Orders
 	// std::cout << "PreOrder" << std::endl;

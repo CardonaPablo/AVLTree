@@ -45,9 +45,10 @@ public:
 				left->push(value);
 			}
 		}
+		std::cout << "Updating height" << std::endl;
 		updateHeight();
 	}
-
+	
 	void postOrder() {
 		if(left != nullptr) 
 			left->postOrder();
@@ -74,8 +75,8 @@ public:
 
 	void updateHeight() {
 
-		int leftHeight = -1;
-		int rightHeight = -1;
+		int leftHeight = 0;
+		int rightHeight = 0;
 
 		std::cout << "----------------" << std::endl;
 		std::cout << "Data: " << data << std::endl;
@@ -84,31 +85,51 @@ public:
 
 		if(left == nullptr && right == nullptr) {
 			height = 0;
-			std::cout << "New height: " << height << std::endl;
+			std::cout << "Height: " << height << std::endl;
 			return;
 		}
 
 		if(left != nullptr) {
 			leftHeight = left->height;
+			left = left->checkBalanceFactor(); 
+			std::cout << "Left height: " << leftHeight << std::endl;
 		}
 		if(right != nullptr) {
 			rightHeight = right->height;
+			right = right->checkBalanceFactor(); 
+			std::cout << "Right height: " << rightHeight << std::endl;
 		}
 
 		int maxHeight = leftHeight > rightHeight ? leftHeight : rightHeight;
 		height = maxHeight + 1;
-		int balance = leftHeight - rightHeight;
-
 
 		std::cout << "New height: " << height << std::endl;
-		std::cout << "Balance: " << balance << std::endl;
 
+	}
+
+	Node<T>* checkBalanceFactor() {
+
+		std::cout << "Checking sub node:" << this->data << std::endl;
+		std::cout << "Left:" << left << std::endl;
+		// left->printNode();
+		std::cout << "Right:" << right << std::endl;
+		// right->printNode();
+		int leftHeight = 0;
+		int rightHeight = 0;
+		if(left != nullptr)
+			leftHeight = left->height + 1;
+		if(right != nullptr)
+			rightHeight = right->height + 1;
+		std::cout << "Left height:" << leftHeight << std::endl;
+		std::cout << "Right height:" << rightHeight << std::endl;
+		int balance = leftHeight - rightHeight;
+		std::cout << "Balance: " << balance << std::endl;
 		if(balance > 1 || balance < -1) {
 			std::cout << data << " requires balancing" << std::endl;
 			Tree t(this);
-			t.balance();
+			return t.balance();
 		}
-			
+		return this;
 	}
 
 	void printNode() {

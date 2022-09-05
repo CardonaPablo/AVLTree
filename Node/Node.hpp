@@ -104,10 +104,8 @@ public:
 		std::cout << "Balance: " << balance << std::endl;
 
 		if(balance > 1 || balance < -1) {
-			std::cout << data << "\nRequires balancing" << std::endl;
+			std::cout << data << " requires balancing" << std::endl;
 			Tree t(this);
-			// std::cout << "Pre balance" << std::endl;
-			// this->printNode();
 			t.balance();
 		}
 			

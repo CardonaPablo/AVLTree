@@ -33,6 +33,7 @@ class Tree {
 			std::cout << "Checking balance for " << std::endl;
 			root -> printNode();
 			std::cout << std::endl;
+			drawTree();
 			Node<T>* selected = root;
 			for (int i = 0; i < 2; i++)
 			{
@@ -47,17 +48,17 @@ class Tree {
 					route[i] = 'R';
 					selected = root->right;
 				}
-				if(selected->right == 0 || lHeight  > rHeight) {
+				if(selected->right == nullptr || lHeight  > rHeight) {
 					route[i] = 'L';
 					selected = root->left;
 				}
 			}
 
-			if(strcmp(route, "LL") == 0) {
-				std::cout << "Detected " << route << " imbalance" << std::endl;
+			std::cout << "Detected " << route << " imbalance" << std::endl;
+			if(strcmp(route, "LL") == 0)
 				rotationLL();
-			}
-			// } else if
+			else if(strcmp(route, "RR") == 0)
+				rotationRR();
 
 		}
 
@@ -66,7 +67,7 @@ class Tree {
 			if(root->left != nullptr)
 				std::cout << "\t" << root->left->getData();
 			else
-				std::cout << "NULL";
+				std::cout  << "\t" << "NULL";
 
 			std::cout << "\t\t";
 
@@ -104,7 +105,6 @@ class Tree {
 
 		void rotationLL() {
 			std::cout << "Performing LL rotation" << std::endl;
-			drawTree();
 			// Guardar raíz→L→ R 
 			Node<T>* buffer = root->left->right;
 			// Copiar el puntero de raíz hacia la raíz→L→R
@@ -113,6 +113,19 @@ class Tree {
 			root = root->left;
 			// Reemplazar raíz→R→L con el valor guardado en (1)
 			root->right->left = buffer;
+			drawTree();
+		}
+
+		void rotationRR() {
+			std::cout << "Performing RR rotation" << std::endl;
+			// Guardar raíz→L→ R 
+			Node<T>* buffer = root->right->left;
+			// Copiar el puntero de raíz hacia la raíz→L→R
+			root->right->left= root;
+			// Hacer raíz→L la nueva raíz
+			root = root->right;
+			// Reemplazar raíz→R→L con el valor guardado en (1)
+			root->left->right = buffer;
 			drawTree();
 		}
 

@@ -63,6 +63,8 @@ class Tree {
 				rotationRR();
 			else if(strcmp(route, "LR") == 0)
 				rotationLR();
+			else if(strcmp(route, "RL") == 0)
+				rotationRL();
 			
 			drawTree();
 			return root;
@@ -149,6 +151,23 @@ class Tree {
 			buffer->printNode();
 			rotationLL();
 		}
+		void rotationRL() {
+			std::cout << "Performing RL rotation" << std::endl;
+			// 1. Raíz→L→R debe ser raíz→L
+			Node<T>* buffer = root->right;
+			Node<T>* buffer2 = root->right->left->right;
+			root->right= root->right->left;
+
+			// 2. Raíz →L debe ser raíz→L→L
+			buffer->left = buffer2;
+			root->right->right= buffer;
+			// 3. Se convierte en una rotación RR
+			drawTree();
+			// std::cout << "Below 20" << std::endl;
+			// buffer->printNode();
+			rotationRR();
+		}
+		
 };
 
 #endif

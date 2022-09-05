@@ -3,16 +3,16 @@
 #include <iostream>
 
 int main() {
-	Node<int> root;
 	Tree<int> tree;
 	//* Normal Tree
-	// root.setData(60);
-	// root.push(20);
-	// root.push(70);
-	// root.push(10);
-	// root.push(40);
-	// root.push(30);
-	// root.push(50);
+	tree.push(1);
+	tree.push(2);
+	tree.push(3);
+	tree.push(4);
+	tree.push(5);
+	tree.push(6);
+	tree.push(7);
+	tree.push(8);
 
 	//* LL Rotation
 	// tree.push(30);
@@ -25,9 +25,14 @@ int main() {
 	// tree.push(40);
 
 	//* LR Rotation
-	tree.push(30);
-	tree.push(20);
-	tree.push(25);
+	// tree.push(30);
+	// tree.push(20);
+	// tree.push(25);
+
+	//* RL Rotation
+	// tree.push(30);
+	// tree.push(50);
+	// tree.push(40);
 
 	std::cout << "FINAL FORM" << std::endl;
 	tree.drawTree();

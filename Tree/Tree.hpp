@@ -22,20 +22,24 @@ class Tree {
 		void push(const T& value) {
 			if(root == nullptr) {
 				root = new Node(value);
+				std::cout << "Pushing root: " << value << std::endl;
+				drawTree();
 			} else {
 				root->push(value);
-				std::cout << "Checking balance factor of root";
+				// std::cout << "Checking balance factor of root";
 				root = root->checkBalanceFactor();
+				drawTree();
 			}
 		}
 
 		Node<T>* balance() {
 			// Follow the path with max height 3 levels to find rotation
 			char route[2] = { 'N' , 'N' }; 
-			std::cout << "Checking balance for " << std::endl;
-			root -> printNode();
-			std::cout << std::endl;
+			// std::cout << "Checking balance for " << std::endl;
+			// root -> printNode();
+			// std::cout << std::endl;
 			drawTree();
+
 			Node<T>* selected = root;
 			for (int i = 0; i < 2; i++)
 			{
@@ -151,6 +155,7 @@ class Tree {
 			buffer->printNode();
 			rotationLL();
 		}
+
 		void rotationRL() {
 			std::cout << "Performing RL rotation" << std::endl;
 			// 1. Raíz→L→R debe ser raíz→L
@@ -163,11 +168,24 @@ class Tree {
 			root->right->right= buffer;
 			// 3. Se convierte en una rotación RR
 			drawTree();
-			// std::cout << "Below 20" << std::endl;
-			// buffer->printNode();
 			rotationRR();
 		}
+
+		void preOrder() {
+			if(root != nullptr)
+			root->preOrder();
+		}
 		
+		void inOrder() {
+			if(root != nullptr)
+			root->inOrder();
+		}
+		
+		void postOrder() {
+			if(root != nullptr)
+			root->postOrder();
+		}
 };
+
 
 #endif
